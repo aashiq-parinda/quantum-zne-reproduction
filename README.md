@@ -3,9 +3,10 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Tests: 21/21 Passed](https://img.shields.io/badge/tests-21%2F21%20passing-brightgreen)](#-testing)
+[![DOI: 10.5281/zenodo.21979332](https://zenodo.org/badge/DOI/10.5281/zenodo.21979332.svg)](https://doi.org/10.5281/zenodo.21979332)
 
 This repository reproduces the foundational quantum error mitigation paper:
-> **Temme, K., Bravyi, S., & Gambetta, J. M. (2017).** *Error mitigation for short-depth quantum circuits.* Physical Review Letters, 119(18), 180509. [arXiv:1612.02058](https://arxiv.org/abs/1612.02058).
+> **Temme, K., Bravyi, S., & Gambetta, J. M. (2017).** *Error mitigation for short-depth quantum circuits.* Physical Review Letters, 119(18), 180509. [arXiv:1612.02058](https://arxiv.org/abs/1612.02058) | [Zenodo Reproduction Record](https://doi.org/10.5281/zenodo.21979332).
 
 It is built from mathematical first principles using a custom density-matrix quantum simulator with depolarizing noise channels, gate folding, and Richardson extrapolation.
 
