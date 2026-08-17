@@ -8,13 +8,17 @@
 
 Near-term quantum devices ("NISQ") have significant gate errors and decoherence. Without error correction, every gate introduces noise:
 
-$$\mathcal{E}_\lambda(\rho) = (1-\lambda)\rho + \frac{\lambda}{3}(X\rho X + Y\rho Y + Z\rho Z)$$
+```
+E_λ(ρ) = (1 - λ)ρ + (λ/3) · [XρX + YρY + ZρZ]
+```
 
-This corrupts expectation values of observables $O$:
+This corrupts expectation values of observables O:
 
-$$\langle O \rangle_\lambda = \langle O \rangle_0 + \lambda \epsilon_1 + \lambda^2 \epsilon_2 + O(\lambda^3)$$
+```
+⟨O⟩_λ = ⟨O⟩₀ + λ ε₁ + λ² ε₂ + O(λ³)
+```
 
-**Goal**: Estimate the noise-free value $\langle O \rangle_0$ without additional qubit resources.
+**Goal**: Estimate the noise-free value ⟨O⟩₀ without additional qubit resources.
 
 ---
 
@@ -22,35 +26,41 @@ $$\langle O \rangle_\lambda = \langle O \rangle_0 + \lambda \epsilon_1 + \lambda
 
 ### Step 1: Noise Amplification via Gate Folding
 
-Replace each gate $U$ with a folded sequence that has identical ideal action but amplified noise:
+Replace each gate U with a folded sequence that has identical ideal action but amplified noise:
 
-$$U \rightarrow U (U^\dagger U)^n \qquad \text{noise factor } c = 2n+1$$
+```
+U  →  U (U† U)^n     (noise scaling factor c = 2n + 1)
+```
 
-This gives effective noise rates $\{c_1 \lambda, c_2 \lambda, c_3 \lambda, ...\}$ for scale factors $\{c_1, c_2, c_3, ...\} = \{1, 3, 5, ...\}$.
+This gives effective noise rates {c₁λ, c₂λ, c₃λ, ...} for scale factors {c₁, c₂, c₃, ...} = {1, 3, 5, ...}.
 
 ### Step 2: Measure Expectation Values
 
-Execute circuit at each noise level and record $\langle O \rangle_{c_k \lambda}$.
+Execute circuit at each noise level and record ⟨O⟩_{c_k λ}.
 
 ### Step 3: Richardson Extrapolation
 
 Compute the zero-noise estimate using Richardson's deferred approach to the limit:
 
-$$\langle O \rangle_0 \approx \sum_{k=1}^{n} c_k \langle O \rangle_{\lambda_k}$$
+```
+⟨O⟩₀ ≈ ∑_{k=1}^n c_k · ⟨O⟩_{λ_k}
+```
 
 where the Richardson coefficients are:
 
-$$c_k = \prod_{j \neq k} \frac{\lambda_j}{\lambda_j - \lambda_k}$$
+```
+c_k = ∏_{j ≠ k} [ λ_j / (λ_j - λ_k) ]
+```
 
-**Key property**: $\sum_k c_k = 1$, and this cancels all noise terms up to order $\lambda^{n-1}$.
+**Key property**: ∑_k c_k = 1, and this cancels all noise terms up to order λ^(n-1).
 
 ---
 
 ## Key Assumptions
 
-1. **Small noise** ($\lambda \ll 1$): Taylor expansion is valid. Method degrades at large $\lambda$.
+1. **Small noise** (λ ≪ 1): Taylor expansion is valid. Method degrades at large λ.
 2. **Markovian noise**: Noise is uncorrelated between gates.
-3. **Gate-independent noise**: Same $\lambda$ applies to every gate.
+3. **Gate-independent noise**: Same λ applies to every gate.
 4. **Locality**: Single-qubit depolarizing after each gate.
 
 ---
@@ -59,8 +69,8 @@ $$c_k = \prod_{j \neq k} \frac{\lambda_j}{\lambda_j - \lambda_k}$$
 
 | Figure | Original Result | Our Result | Status |
 | :--- | :--- | :--- | :--- |
-| Fig 1: $\langle ZZ \rangle$ vs $\lambda$ | Linear decay $\approx (1-4\lambda/3)^d$ | ✅ Linear decay confirmed | Reproduced |
-| Fig 2: ZNE vs raw error | ZNE reduces error ~5-10× at low $\lambda$ | ✅ Confirmed at $\lambda \le 0.02$ | Reproduced |
+| Fig 1: ⟨ZZ⟩ vs λ | Linear decay ≈ (1 - 4λ/3)^d | ✅ Linear decay confirmed | Reproduced |
+| Fig 2: ZNE vs raw error | ZNE reduces error ~5-10× at low λ | ✅ Confirmed at λ ≤ 0.02 | Reproduced |
 | Fig 3: Method comparison | Richardson outperforms linear 2-point | ✅ Richardson has lower error | Reproduced |
 
 See `DISCREPANCY_NOTES.md` for documented differences.
